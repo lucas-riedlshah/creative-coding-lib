@@ -11,12 +11,13 @@ class RingEmitter {
     get_emitted_objects() {
         return this._emitted_objects;
     }
-    emit(type, n = 100) {
+    emit(callback, n = 100) {
         const result = [];
         for (let i = 0; i < n; i++) {
-            const new_object = new type();
             const angle = Math.random() * Math.PI * 2;
-            new_object.position.set(this._x + this._radius * Math.cos(angle), this._y + this._radius * Math.sin(angle));
+            const x = this._x + this._radius * Math.cos(angle);
+            const y = this._y + this._radius * Math.sin(angle);
+            const new_object = callback(x, y);
             result.push(new_object);
             this._emitted_objects.push(new_object);
         }

@@ -6,7 +6,5 @@ export declare class RingEmitter {
     private _y;
     constructor(x?: number, y?: number, radius?: number);
     get_emitted_objects(): IPositionable[];
-    emit<T extends IPositionable>(type: {
-        new (): T;
-    }, n?: number): T[];
+    emit<T extends IPositionable>(callback: (x: number, y: number) => T, n?: number): T[];
 }

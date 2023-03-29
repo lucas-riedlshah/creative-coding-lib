@@ -16,13 +16,16 @@ export class RingEmitter {
     return this._emitted_objects
   }
 
-  public emit<T extends IPositionable>(type: { new(): T }, n = 100): T[] {
+  public emit<T extends IPositionable>(callback: (x: number, y: number) => T, n = 100): T[] {
     const result: T[] = []
 
     for (let i = 0; i < n; i++) {
-      const new_object = new type();
       const angle = Math.random() * Math.PI * 2;
-      new_object.position.set(this._x + this._radius * Math.cos(angle), this._y + this._radius * Math.sin(angle))
+      
+      const x = this._x + this._radius * Math.cos(angle)
+      const y = this._y + this._radius * Math.sin(angle)
+
+      const new_object = callback(x, y)
 
       result.push(new_object)
       this._emitted_objects.push(new_object)
