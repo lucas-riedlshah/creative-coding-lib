@@ -1,2 +1,4 @@
-export { Particle } from './Particle';
-export { RingEmitter } from './RingEmitter';
+import { Emitter } from './Emitter';
+import { Circle } from './Circle';
+import { Particle } from './Particle';
+export { Emitter, Circle, Particle };
