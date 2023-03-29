@@ -1,43 +1,26 @@
 import { IPositionable } from "./IPositionable"
+import { Vector2 } from "./Vector2"
 
 export class Particle implements IPositionable {
-  private _position: [number, number] = [0, 0]
-  private _velocity: [number, number] = [0, 0]
-  private _acceleration: [number, number] = [0, 0]
+  private _position: Vector2 = new Vector2(0, 0)
+  private _velocity: Vector2 = new Vector2(0, 0)
+  private _acceleration: Vector2 = new Vector2(0, 0)
+
+  public get position(): Vector2 { return this._position }
+  public get velocity(): Vector2 { return this._velocity }
+  public get acceleration(): Vector2 { return this._acceleration }
 
   public constructor(x: number, y: number) {
-    this._position = [x, y]
-  }
-
-  public get x(): number {
-    return this._position[0]
-  }
-
-  public get y(): number {
-    return this._position[1]
-  }
-
-  public get position(): [number, number] {
-    return this._position
-  }
-
-  public get velocity(): [number, number] {
-    return this._velocity
-  }
-
-  public get acceleration(): [number, number] {
-    return this._acceleration
+    this._position = new Vector2(x, y)
   }
 
   private update_position() {
-    this._velocity[0] += this._acceleration[0]
-    this._velocity[1] += this._acceleration[1]
+    this._velocity.add_vector_in_place(this._acceleration)
 
-    this._position[0] += this._velocity[0]
-    this._position[1] += this._velocity[1]
+    this._position.add_vector_in_place(this._velocity)
 
-    this._acceleration[0] = 0
-    this._acceleration[1] = 0
+    this._acceleration.x = 0
+    this._acceleration.y = 0
   }
 
   public update() {
@@ -45,12 +28,10 @@ export class Particle implements IPositionable {
   }
 
   public apply_force(x: number, y: number) {
-    this._acceleration[0] += x
-    this._acceleration[1] += y
+    this._acceleration.add_in_place(x, y)
   }
 
-  public set_position(x: number, y: number): void {
-    this._position[0] = x
-    this._position[1] = y
+  public move_to(x: number, y: number): void {
+    this._position
   }
 }
