@@ -6,12 +6,19 @@ export class Particle implements IPositionable {
   private _velocity: Vector2 = new Vector2(0, 0)
   private _acceleration: Vector2 = new Vector2(0, 0)
 
+  public age: number = 0
+  public dead: boolean = false
+  public mass: number
+  public lifetime: number
+
   public get position(): Vector2 { return this._position }
   public get velocity(): Vector2 { return this._velocity }
   public get acceleration(): Vector2 { return this._acceleration }
 
-  public constructor(x: number, y: number) {
+  public constructor(x: number, y: number, mass: number = 1, lifetime: number = Infinity) {
     this._position = new Vector2(x, y)
+    this.mass = mass
+    this.lifetime = lifetime
   }
 
   private update_position() {
@@ -24,14 +31,15 @@ export class Particle implements IPositionable {
   }
 
   public update() {
+    if (this.dead) return
+
+    this.age++
+    if (this.age > this.lifetime) this.dead = true
+
     this.update_position()
   }
 
-  public apply_force(x: number, y: number) {
-    this._acceleration.add_in_place(x, y)
-  }
-
-  public move_to(x: number, y: number): void {
-    this._position
+  public apply_force(force: Vector2) {
+    this._acceleration.add_in_place(force.x / this.mass, force.y / this.mass)
   }
 }
