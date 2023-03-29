@@ -1,16 +1,13 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Particle = void 0;
-const Vector2_1 = require("./Vector2");
-class Particle {
+import { Vector2 } from "./Vector2";
+export class Particle {
     get position() { return this._position; }
     get velocity() { return this._velocity; }
     get acceleration() { return this._acceleration; }
     constructor(x, y) {
-        this._position = new Vector2_1.Vector2(0, 0);
-        this._velocity = new Vector2_1.Vector2(0, 0);
-        this._acceleration = new Vector2_1.Vector2(0, 0);
-        this._position = new Vector2_1.Vector2(x, y);
+        this._position = new Vector2(0, 0);
+        this._velocity = new Vector2(0, 0);
+        this._acceleration = new Vector2(0, 0);
+        this._position = new Vector2(x, y);
     }
     update_position() {
         this._velocity.add_vector_in_place(this._acceleration);
@@ -28,4 +25,3 @@ class Particle {
         this._position;
     }
 }
-exports.Particle = Particle;

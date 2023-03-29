@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.RingEmitter = void 0;
-class RingEmitter {
+export class RingEmitter {
     constructor(x = 0, y = 0, radius = 10) {
         this._emitted_objects = [];
         this._x = x;
@@ -24,4 +21,3 @@ class RingEmitter {
         return result;
     }
 }
-exports.RingEmitter = RingEmitter;

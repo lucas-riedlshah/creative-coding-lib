@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A library of all things creative coding.",
   "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "types": "dist/index.d.ts",
   "scripts": {
     "prepare": "npm run build",
     "build": "tsc"
