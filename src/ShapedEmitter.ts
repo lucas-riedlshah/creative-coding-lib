@@ -1,12 +1,13 @@
 import { IShape } from "./IShape";
 import { IPositionable } from "./IPositionable";
+import { IEmitter } from "./IEmitter";
 
-export class Emitter {
+export class ShapedEmitter implements IEmitter {
   private _emitted_objects: IPositionable[] = []
-  public shape: IShape
+  private _shape: IShape
 
   public constructor(shape: IShape) {
-    this.shape = shape
+    this._shape = shape
   }
 
   public get_emitted_objects() {
@@ -17,7 +18,7 @@ export class Emitter {
     const result: T[] = []
 
     for (let i = 0; i < n; i++) {
-      const position = this.shape.get_random_point(random)
+      const position = this._shape.get_random_point(random)
       const new_object = callback(position.x, position.y)
       result.push(new_object)
       this._emitted_objects.push(new_object)
