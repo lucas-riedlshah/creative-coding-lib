@@ -1,7 +1,8 @@
+import { IEmitter } from "./IEmitter"
 import { IPositionable } from "./IPositionable"
 import { Vector2 } from "./Vector2"
 
-export class Particle implements IPositionable {
+export class Particle implements IPositionable, IEmitter {
   private _position: Vector2 = new Vector2(0, 0)
   private _velocity: Vector2 = new Vector2(0, 0)
   private _acceleration: Vector2 = new Vector2(0, 0)
@@ -41,5 +42,12 @@ export class Particle implements IPositionable {
 
   public apply_force(force: Vector2) {
     this._acceleration.add_in_place(force.x / this.mass, force.y / this.mass)
+  }
+  
+  public emit<T extends IPositionable>(callback: (x: number, y: number) => T, n: number): T[] {
+    const result: T[] = []
+    for (let i = 0; i < n; i++)
+      result.push(callback(this.position.x, this.position.y))
+    return result
   }
 }

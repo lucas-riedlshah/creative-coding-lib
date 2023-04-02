@@ -30,4 +30,10 @@ export class Particle {
     apply_force(force) {
         this._acceleration.add_in_place(force.x / this.mass, force.y / this.mass);
     }
+    emit(callback, n) {
+        const result = [];
+        for (let i = 0; i < n; i++)
+            result.push(callback(this.position.x, this.position.y));
+        return result;
+    }
 }
