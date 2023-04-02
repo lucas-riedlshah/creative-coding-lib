@@ -4,19 +4,21 @@ import { Particle } from "./Particle"
 
 export class ShapedForceField implements IForceField {
   private _shape: IShape
-  private _callback: (shape: IShape, particle: Particle) => void
 
-  public constructor(shape: IShape, callback: (shape: IShape, particle: Particle) => void) {
+  public constructor(shape: IShape) {
     this._shape = shape
-    this._callback = callback
   }
 
-  public apply_force_field(particles: Particle[]) {
-    for (let i = 0; i < particles.length; i++) this._callback(this._shape, particles[i])
+  public apply_force_field(callback: (particle: Particle, shape: IShape) => void, particles: Particle[]) {
+    for (let i = 0; i < particles.length; i++) {
+      const particle = particles[i]
+      if (this._shape.contains(particle.position))
+        callback(particle, this._shape)
+    }
   }
 }
 
-export function apply_gravity(shape: IShape, particle: Particle) {
+export function apply_gravity(particle: Particle, shape: IShape) {
   const force_vector = shape.position.subtract_vector(particle.position)
 
   const m = 100 * particle.mass / force_vector.squared_magnitude
