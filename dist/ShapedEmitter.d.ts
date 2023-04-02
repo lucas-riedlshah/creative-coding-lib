@@ -6,5 +6,5 @@ export declare class ShapedEmitter implements IEmitter {
     private _shape;
     constructor(shape: IShape);
     get_emitted_objects(): IPositionable[];
-    emit<T extends IPositionable>(callback: (x: number, y: number) => T, random: () => number, n?: number): T[];
+    emit<T extends IPositionable>(callback: (x: number, y: number) => T, n: number, random: () => number): T[];
 }

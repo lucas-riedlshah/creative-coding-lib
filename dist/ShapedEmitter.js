@@ -6,7 +6,7 @@ export class ShapedEmitter {
     get_emitted_objects() {
         return this._emitted_objects;
     }
-    emit(callback, random, n = 100) {
+    emit(callback, n, random) {
         const result = [];
         for (let i = 0; i < n; i++) {
             const position = this._shape.get_random_point(random);

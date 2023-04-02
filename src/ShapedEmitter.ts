@@ -14,7 +14,7 @@ export class ShapedEmitter implements IEmitter {
     return this._emitted_objects
   }
 
-  public emit<T extends IPositionable>(callback: (x: number, y: number) => T, random: () => number, n = 100): T[] {
+  public emit<T extends IPositionable>(callback: (x: number, y: number) => T, n: number, random: () => number): T[] {
     const result: T[] = []
 
     for (let i = 0; i < n; i++) {
