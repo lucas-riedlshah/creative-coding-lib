@@ -6,5 +6,6 @@ module.exports = {
   rules: {
     "@typescript-eslint/member-ordering": "warn",
     "@typescript-eslint/no-explicit-any": ["warn", { "ignoreRestArgs": true }]
-  }
+  },
+  ignorePatterns: ["lib/"]
 };
