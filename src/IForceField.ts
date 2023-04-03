@@ -1,4 +1,3 @@
-import { IShape } from "./IShape";
 import { Particle } from "./Particle";
 
 export interface IForceField {

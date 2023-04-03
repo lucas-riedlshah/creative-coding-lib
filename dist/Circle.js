@@ -1,8 +1,6 @@
 import { Vector2 } from "./Vector2";
 export class Circle {
     constructor(x, y, inner_radius, outer_radius = 0) {
-        this.inner_radius = 0;
-        this.outer_radius = 100;
         this.position = new Vector2(x, y);
         this.inner_radius = Math.min(inner_radius, outer_radius);
         this.outer_radius = Math.max(inner_radius, outer_radius);

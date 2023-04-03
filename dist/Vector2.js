@@ -1,4 +1,10 @@
 export class Vector2 {
+    constructor(x, y) {
+        this.x = 0;
+        this.y = 0;
+        this.x = x;
+        this.y = y;
+    }
     static get zero() {
         return new Vector2(0, 0);
     }
@@ -13,24 +19,6 @@ export class Vector2 {
     }
     get normalized() {
         return new Vector2(this.x / this.magnitude, this.y / this.magnitude);
-    }
-    constructor(x, y) {
-        this.x = 0;
-        this.y = 0;
-        this.x = x;
-        this.y = y;
-    }
-    clone() {
-        return new Vector2(this.x, this.y);
-    }
-    set(x, y) {
-        this.x = x;
-        this.y = y;
-    }
-    normalize() {
-        const m = this.magnitude;
-        this.x /= m;
-        this.y /= m;
     }
     static distance(u, v) {
         return Vector2.subtract(u, v).magnitude;
@@ -49,6 +37,18 @@ export class Vector2 {
     }
     static divide(u, x) {
         return new Vector2(u.x / x, u.y / x);
+    }
+    clone() {
+        return new Vector2(this.x, this.y);
+    }
+    set(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+    normalize() {
+        const m = this.magnitude;
+        this.x /= m;
+        this.y /= m;
     }
     add_in_place(other) {
         this.x += other.x;

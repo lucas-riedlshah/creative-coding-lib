@@ -1,6 +1,11 @@
 export class Vector2 {
-  public x: number = 0
-  public y: number = 0
+  public x = 0
+  public y = 0
+
+  public constructor(x: number, y: number) {
+    this.x = x
+    this.y = y
+  }
 
   public static get zero(): Vector2 {
     return new Vector2(0, 0)
@@ -20,26 +25,6 @@ export class Vector2 {
 
   public get normalized() {
     return new Vector2(this.x / this.magnitude, this.y / this.magnitude)
-  }
-
-  public constructor(x: number, y: number) {
-    this.x = x
-    this.y = y
-  }
-
-  public clone() {
-    return new Vector2(this.x, this.y)
-  }
-
-  public set(x: number, y: number) {
-    this.x = x
-    this.y = y
-  }
-
-  public normalize() {
-    const m = this.magnitude
-    this.x /= m
-    this.y /= m
   }
 
   public static distance(u: Vector2, v: Vector2) {
@@ -64,6 +49,21 @@ export class Vector2 {
 
   public static divide(u: Vector2, x: number): Vector2 {
     return new Vector2(u.x / x, u.y / x)
+  }
+
+  public clone() {
+    return new Vector2(this.x, this.y)
+  }
+
+  public set(x: number, y: number) {
+    this.x = x
+    this.y = y
+  }
+
+  public normalize() {
+    const m = this.magnitude
+    this.x /= m
+    this.y /= m
   }
 
   public add_in_place(other: Vector2): void {

@@ -4,12 +4,12 @@ import { Vector2 } from "./Vector2";
 
 export class Circle implements IShape, IPositionable {
   public position: Vector2
-  public inner_radius: number = 0
-  public outer_radius: number = 100
+  public inner_radius: number
+  public outer_radius: number
 
   public constructor(x: number, y: number, radius: number)
   public constructor(x: number, y: number, inner_radius: number, outer_radius: number)
-  public constructor(x: number, y: number, inner_radius: number, outer_radius: number = 0) {
+  public constructor(x: number, y: number, inner_radius: number, outer_radius = 0) {
     this.position = new Vector2(x, y)
     this.inner_radius = Math.min(inner_radius, outer_radius)
     this.outer_radius = Math.max(inner_radius, outer_radius)
