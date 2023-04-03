@@ -14,8 +14,8 @@ export class Particle {
         this.lifetime = lifetime;
     }
     update_position() {
-        this._velocity.add_vector_in_place(this._acceleration);
-        this._position.add_vector_in_place(this._velocity);
+        this._velocity.add_in_place(this._acceleration);
+        this._position.add_in_place(this._velocity);
         this._acceleration.x = 0;
         this._acceleration.y = 0;
     }
@@ -28,7 +28,7 @@ export class Particle {
         this.update_position();
     }
     apply_force(force) {
-        this._acceleration.add_in_place(force.x / this.mass, force.y / this.mass);
+        this._acceleration.add_in_place(Vector2.divide(force, this.mass));
     }
     emit(callback, n) {
         const result = [];

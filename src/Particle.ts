@@ -23,9 +23,9 @@ export class Particle implements IPositionable, IEmitter {
   }
 
   private update_position() {
-    this._velocity.add_vector_in_place(this._acceleration)
+    this._velocity.add_in_place(this._acceleration)
 
-    this._position.add_vector_in_place(this._velocity)
+    this._position.add_in_place(this._velocity)
 
     this._acceleration.x = 0
     this._acceleration.y = 0
@@ -41,7 +41,7 @@ export class Particle implements IPositionable, IEmitter {
   }
 
   public apply_force(force: Vector2) {
-    this._acceleration.add_in_place(force.x / this.mass, force.y / this.mass)
+    this._acceleration.add_in_place(Vector2.divide(force, this.mass))
   }
   
   public emit<T extends IPositionable>(callback: (x: number, y: number) => T, n: number): T[] {

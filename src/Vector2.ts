@@ -27,10 +27,6 @@ export class Vector2 {
     this.y = y
   }
 
-  public static distance(u: Vector2, v: Vector2) {
-    return u.subtract_vector(v).magnitude
-  }
-
   public clone() {
     return new Vector2(this.x, this.y)
   }
@@ -46,44 +42,38 @@ export class Vector2 {
     this.y /= m
   }
 
-  public add(x: number, y: number): Vector2 {
-    return new Vector2(this.x + x, this.y + y)
+  public static distance(u: Vector2, v: Vector2) {
+    return Vector2.subtract(u, v).magnitude
   }
 
-  public add_vector(other: Vector2): Vector2 {
-    return new Vector2(this.x + other.x, this.y + other.y)
+  public static add(u: Vector2, v: Vector2): Vector2 {
+    return new Vector2(u.x + v.x, u.y + v.y)
   }
 
-  public add_in_place(x: number, y: number): void {
-    this.x += x
-    this.y += y
+  public static subtract(u: Vector2, v: Vector2): Vector2 {
+    return new Vector2(u.x - v.x, u.y - v.y)
   }
 
-  public add_vector_in_place(other: Vector2): void {
+  public static multiply(u: Vector2, x: number): Vector2 {
+    return new Vector2(u.x * x, u.y * x)
+  }
+
+  public static dot(u: Vector2, v: Vector2): Vector2 {
+    return new Vector2(u.x * v.x, u.y * v.y)
+  }
+
+  public static divide(u: Vector2, x: number): Vector2 {
+    return new Vector2(u.x / x, u.y / x)
+  }
+
+  public add_in_place(other: Vector2): void {
     this.x += other.x
     this.y += other.y
   }
 
-  public subtract(x: number, y: number): Vector2 {
-    return new Vector2(this.x - x, this.y - y)
-  }
-
-  public subtract_vector(other: Vector2): Vector2 {
-    return new Vector2(this.x - other.x, this.y - other.y)
-  }
-
-  public subtract_in_place(x: number, y: number): void {
-    this.x -= x
-    this.y -= y
-  }
-
-  public subtract_vector_in_place(other: Vector2): void {
+  public subtract_in_place(other: Vector2): void {
     this.x -= other.x
     this.y -= other.y
-  }
-
-  public multiply(x: number): Vector2 {
-    return new Vector2(this.x * x, this.y * x)
   }
 
   public multiply_in_place(x: number): void {
@@ -91,21 +81,13 @@ export class Vector2 {
     this.y *= x
   }
 
-  public dot(x: number, y: number): Vector2 {
-    return new Vector2(this.x * x, this.y * y)
-  }
-
-  public dot_vector(other: Vector2): Vector2 {
-    return new Vector2(this.x * other.x, this.y * other.y)
-  }
-
-  public dot_in_place(x: number, y: number): void {
-    this.x *= x
-    this.y *= y
-  }
-
-  public dot_vector_in_place(other: Vector2): void {
+  public dot_in_place(other: Vector2): void {
     this.x *= other.x
     this.y *= other.y
+  }
+
+  public divide_in_place(x: number): void {
+    this.x /= x
+    this.y /= x
   }
 }

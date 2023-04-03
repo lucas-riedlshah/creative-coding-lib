@@ -20,9 +20,6 @@ export class Vector2 {
         this.x = x;
         this.y = y;
     }
-    static distance(u, v) {
-        return u.subtract_vector(v).magnitude;
-    }
     clone() {
         return new Vector2(this.x, this.y);
     }
@@ -35,53 +32,42 @@ export class Vector2 {
         this.x /= m;
         this.y /= m;
     }
-    add(x, y) {
-        return new Vector2(this.x + x, this.y + y);
+    static distance(u, v) {
+        return Vector2.subtract(u, v).magnitude;
     }
-    add_vector(other) {
-        return new Vector2(this.x + other.x, this.y + other.y);
+    static add(u, v) {
+        return new Vector2(u.x + v.x, u.y + v.y);
     }
-    add_in_place(x, y) {
-        this.x += x;
-        this.y += y;
+    static subtract(u, v) {
+        return new Vector2(u.x - v.x, u.y - v.y);
     }
-    add_vector_in_place(other) {
+    static multiply(u, x) {
+        return new Vector2(u.x * x, u.y * x);
+    }
+    static dot(u, v) {
+        return new Vector2(u.x * v.x, u.y * v.y);
+    }
+    static divide(u, x) {
+        return new Vector2(u.x / x, u.y / x);
+    }
+    add_in_place(other) {
         this.x += other.x;
         this.y += other.y;
     }
-    subtract(x, y) {
-        return new Vector2(this.x - x, this.y - y);
-    }
-    subtract_vector(other) {
-        return new Vector2(this.x - other.x, this.y - other.y);
-    }
-    subtract_in_place(x, y) {
-        this.x -= x;
-        this.y -= y;
-    }
-    subtract_vector_in_place(other) {
+    subtract_in_place(other) {
         this.x -= other.x;
         this.y -= other.y;
-    }
-    multiply(x) {
-        return new Vector2(this.x * x, this.y * x);
     }
     multiply_in_place(x) {
         this.x *= x;
         this.y *= x;
     }
-    dot(x, y) {
-        return new Vector2(this.x * x, this.y * y);
-    }
-    dot_vector(other) {
-        return new Vector2(this.x * other.x, this.y * other.y);
-    }
-    dot_in_place(x, y) {
-        this.x *= x;
-        this.y *= y;
-    }
-    dot_vector_in_place(other) {
+    dot_in_place(other) {
         this.x *= other.x;
         this.y *= other.y;
+    }
+    divide_in_place(x) {
+        this.x /= x;
+        this.y /= x;
     }
 }

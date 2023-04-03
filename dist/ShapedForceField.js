@@ -1,3 +1,4 @@
+import { Vector2 } from "./Vector2";
 export class ShapedForceField {
     constructor(shape) {
         this._shape = shape;
@@ -11,7 +12,7 @@ export class ShapedForceField {
     }
 }
 export function apply_gravity(particle, shape) {
-    const force_vector = shape.position.subtract_vector(particle.position);
+    const force_vector = Vector2.subtract(shape.position, particle.position);
     const m = 100 * particle.mass / force_vector.squared_magnitude;
     force_vector.normalize();
     force_vector.multiply_in_place(m);
