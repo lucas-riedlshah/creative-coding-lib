@@ -11,8 +11,8 @@ export class Circle implements IShape, IPositionable {
   public constructor(x: number, y: number, inner_radius: number, outer_radius: number)
   public constructor(x: number, y: number, inner_radius: number, outer_radius = 0) {
     this.position = new Vector2(x, y)
-    this.inner_radius = Math.min(inner_radius, outer_radius)
-    this.outer_radius = Math.max(inner_radius, outer_radius)
+    this.inner_radius = Math.abs(Math.min(inner_radius, outer_radius))
+    this.outer_radius = Math.abs(Math.max(inner_radius, outer_radius))
   }
 
   public get_random_point(random: () => number): Vector2 {
