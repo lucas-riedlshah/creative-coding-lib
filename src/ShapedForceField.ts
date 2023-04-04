@@ -1,7 +1,6 @@
 import { IForceField } from "./IForceField"
 import { IShape } from "./IShape"
 import { Particle } from "./Particle"
-import { Vector2 } from "./Vector2"
 
 export class ShapedForceField implements IForceField {
   private _shape: IShape
@@ -17,16 +16,4 @@ export class ShapedForceField implements IForceField {
         callback(particle, this._shape)
     }
   }
-}
-
-export function apply_gravity(particle: Particle, shape: IShape) {
-  const force_vector = Vector2.subtract(shape.position, particle.position)
-
-  const m = 100 * particle.mass / force_vector.squared_magnitude
-
-  force_vector.normalize()
-
-  force_vector.multiply_in_place(m)
-
-  particle.apply_force(force_vector)
 }
