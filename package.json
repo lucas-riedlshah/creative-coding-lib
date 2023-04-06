@@ -13,7 +13,11 @@
   ],
   "author": "Lucas RiedlShah",
   "license": "UNLICENSED",
+  "dependencies": {
+    "delaunator": "^5.0.0"
+  },
   "devDependencies": {
+    "@types/delaunator": "^5.0.0",
     "@typescript-eslint/eslint-plugin": "^5.57.0",
     "@typescript-eslint/parser": "^5.57.0",
     "eslint": "^8.37.0",
