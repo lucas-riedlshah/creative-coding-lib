@@ -16,16 +16,23 @@ export class Graph2D {
     }
   }
 
+  public get adjacency_matrix(): readonly number[][] { return this._adjacency_matrix }
+
+  public get vertices(): readonly Vector2[] { return this._vertices }
+
   public adjacent(vertex_a: Vector2, vertex_b: Vector2): boolean {
     const index_a = this._vertices.indexOf(vertex_a)
     const index_b = this._vertices.indexOf(vertex_b)
     return this._adjacency_matrix[index_a][index_b] != 0
   }
 
-  // public neighbours(vertex: Vector2): readonly Vector2[] {
-  //   const index = this._vertices.indexOf(vertex)
-  //   return this._adjacency_matrix[index].filter(e => e != 0)
-  // }
+  public neighbours(vertex: Vector2): Vector2[] {
+    const vertex_index = this._vertices.indexOf(vertex)
+    const neighbour_indices = this._adjacency_matrix[vertex_index]
+      .map((e, i) => e * i)
+      .filter((e, i) => e > 0 || (i === 0 && this._adjacency_matrix[vertex_index][0] > 0)) // extra check for i === 0 because otherwise it will always be filtered out.
+    return neighbour_indices.map(i => this._vertices[i])
+  }
 
   public add_vertex(vertex: Vector2) {
     if (this._vertices.includes(vertex)) return
@@ -49,15 +56,17 @@ export class Graph2D {
     this._adjacency_matrix[index_b][index_a] = weight
   }
 
+  // public get_edge_weight(vertex_a: Vector2, vertex_b: Vector2): number {
+  //   const index_a = this._vertices.indexOf(vertex_a)
+  //   const index_b = this._vertices.indexOf(vertex_b)
+  //   return this.adjacency_matrix[index_a][index_b]
+  // }
+
   public remove_edge(vertex_a: Vector2, vertex_b: Vector2): void {
     const index_a = this._vertices.indexOf(vertex_a)
     const index_b = this._vertices.indexOf(vertex_b)
     this._adjacency_matrix[index_a][index_b] = 0
     this._adjacency_matrix[index_b][index_a] = 0
-  }
-
-  public get_vertices(): Vector2[] { 
-    return this._vertices
   }
 
   public get_edges(): [Vector2, Vector2, number][] {
