@@ -31,6 +31,10 @@ export class Vector2 {
     return Vector2.subtract(u, v).magnitude
   }
 
+  public static angle(u: Vector2, v: Vector2): number {
+    return Math.acos(Vector2.dot(u, v) / (u.magnitude * v.magnitude))
+  }
+
   public static add(u: Vector2, v: Vector2): Vector2 {
     return new Vector2(u.x + v.x, u.y + v.y)
   }
@@ -43,8 +47,8 @@ export class Vector2 {
     return new Vector2(u.x * x, u.y * x)
   }
 
-  public static dot(u: Vector2, v: Vector2): Vector2 {
-    return new Vector2(u.x * v.x, u.y * v.y)
+  public static dot(u: Vector2, v: Vector2): number {
+    return u.x * v.x + u.y * v.y
   }
 
   public static divide(u: Vector2, x: number): Vector2 {
@@ -79,11 +83,6 @@ export class Vector2 {
   public multiply_in_place(x: number): void {
     this.x *= x
     this.y *= x
-  }
-
-  public dot_in_place(other: Vector2): void {
-    this.x *= other.x
-    this.y *= other.y
   }
 
   public divide_in_place(x: number): void {

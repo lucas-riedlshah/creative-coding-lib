@@ -8,10 +8,11 @@ export declare class Vector2 {
     get magnitude(): number;
     get normalized(): Vector2;
     static distance(u: Vector2, v: Vector2): number;
+    static angle(u: Vector2, v: Vector2): number;
     static add(u: Vector2, v: Vector2): Vector2;
     static subtract(u: Vector2, v: Vector2): Vector2;
     static multiply(u: Vector2, x: number): Vector2;
-    static dot(u: Vector2, v: Vector2): Vector2;
+    static dot(u: Vector2, v: Vector2): number;
     static divide(u: Vector2, x: number): Vector2;
     clone(): Vector2;
     set(x: number, y: number): void;
@@ -19,6 +20,5 @@ export declare class Vector2 {
     add_in_place(other: Vector2): void;
     subtract_in_place(other: Vector2): void;
     multiply_in_place(x: number): void;
-    dot_in_place(other: Vector2): void;
     divide_in_place(x: number): void;
 }
