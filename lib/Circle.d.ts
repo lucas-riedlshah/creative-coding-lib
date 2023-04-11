@@ -7,6 +7,7 @@ export declare class Circle implements IShape, IPositionable {
     outer_radius: number;
     constructor(x: number, y: number, radius: number);
     constructor(x: number, y: number, inner_radius: number, outer_radius: number);
+    get_area(): number;
     get_random_point(random: () => number): Vector2;
     contains(point: Vector2): boolean;
 }

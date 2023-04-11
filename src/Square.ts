@@ -25,6 +25,10 @@ export class Square implements IShape, IPositionable {
     this.height = Math.abs(height ? height : width * 2)
   }
 
+  public get_area(): number {
+    return this.width * this.height
+  }
+
   public get_random_point(random: () => number): Vector2 {
     const min_x = this.position.x - this.width / 2
     const x = min_x + random() * this.width

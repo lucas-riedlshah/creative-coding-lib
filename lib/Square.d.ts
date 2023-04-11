@@ -7,6 +7,7 @@ export declare class Square implements IShape, IPositionable {
     height: number;
     constructor(position_x: number, position_y: number, radius: number);
     constructor(position_x: number, position_y: number, width: number, height: number);
+    get_area(): number;
     get_random_point(random: () => number): Vector2;
     contains(point: Vector2): boolean;
 }

@@ -7,6 +7,8 @@ export declare class Triangle implements IShape, IPositionable {
     c: Vector2;
     constructor(a: Vector2, b: Vector2, c: Vector2);
     get position(): Vector2;
+    set position(new_position: Vector2);
+    get_area(): number;
     get_random_point(random_func: () => number): Vector2;
     contains(point: Vector2): boolean;
 }

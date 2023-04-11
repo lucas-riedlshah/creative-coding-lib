@@ -20,7 +20,22 @@ export class Triangle implements IShape, IPositionable {
     return center_position
   }
 
-  get_random_point(random_func: () => number): Vector2 {
+  public set position(new_position: Vector2) {
+    const translation = Vector2.subtract(new_position, this.position)
+    this.a.add_in_place(translation)
+    this.b.add_in_place(translation)
+    this.c.add_in_place(translation)
+  }
+
+  public get_area(): number {
+    return 0.5 * Math.abs(
+      this.a.x * (this.b.y - this.c.y) +
+      this.b.x * (this.c.y - this.a.y) +
+      this.c.x * (this.a.y - this.b.y)
+    )
+  }
+
+  public get_random_point(random_func: () => number): Vector2 {
     const r1 = Math.sqrt(random_func())
     const r2 = random_func()
 
@@ -33,7 +48,7 @@ export class Triangle implements IShape, IPositionable {
     )
   }
 
-  contains(point: Vector2): boolean {
+  public contains(point: Vector2): boolean {
     function sign(p1: Vector2, p2: Vector2, p3: Vector2) {
       return (p1.x - p3.x) * (p2.y - p3.y) - (p2.x - p3.x) * (p1.y - p3.y)
     }

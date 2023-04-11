@@ -15,6 +15,10 @@ export class Circle implements IShape, IPositionable {
     this.outer_radius = Math.abs(Math.max(inner_radius, outer_radius))
   }
 
+  public get_area(): number {
+    return Math.PI * (this.outer_radius * this.outer_radius - this.inner_radius * this.inner_radius)
+  }
+
   public get_random_point(random: () => number): Vector2 {
     const theta = random() * Math.PI * 2;
     const r = Math.sqrt(random())
