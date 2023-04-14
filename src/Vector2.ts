@@ -14,6 +14,14 @@ export class Vector2 {
   public static get one(): Vector2 {
     return new Vector2(1, 1)
   }
+
+  public static get forward(): Vector2 {
+    return new Vector2(1, 0)
+  }
+
+  public static get up(): Vector2 {
+    return new Vector2(0, 1)
+  }
   
   public get squared_magnitude() {
     return this.x * this.x + this.y * this.y
@@ -33,6 +41,14 @@ export class Vector2 {
 
   public static angle(u: Vector2, v: Vector2): number {
     return Math.acos(Vector2.dot(u, v) / (u.magnitude * v.magnitude))
+  }
+
+  public static lerp(u: Vector2, v: Vector2, value: number): Vector2 {
+    const relative_end = Vector2.subtract(v, u)
+    return new Vector2(
+      u.x + value * relative_end.x,
+      u.y + value * relative_end.y
+    )
   }
 
   public static add(u: Vector2, v: Vector2): Vector2 {
@@ -69,6 +85,21 @@ export class Vector2 {
     this.x /= m
     this.y /= m
   }
+
+  public rotate(theta: number) {
+    const magnitude = this.magnitude
+    this.x = magnitude * Math.cos(theta)
+    this.y = magnitude * Math.sin(theta)
+  }
+  
+  // UNTESTED
+  // public rotate_around(pivot: Vector2, theta: number) {
+  //   const magnitude = this.magnitude
+  //   this.subtract_in_place(pivot)
+  //   this.x = magnitude * Math.cos(theta)
+  //   this.y = magnitude * Math.sin(theta)
+  //   this.add_in_place(pivot)
+  // }
 
   public add_in_place(other: Vector2): void {
     this.x += other.x
