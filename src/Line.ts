@@ -14,8 +14,8 @@ export class Line {
   }
 
   public get_segment(start: number, end: number): Line {
-    const segment_start = Vector2.lerp(this.start, this.end, start)
-    const segment_end = Vector2.lerp(this.start, this.end, end)
+    const segment_start = Vector2.lerp(this.start, this.end, Math.max(0, Math.min(1, start)))
+    const segment_end = Vector2.lerp(this.start, this.end, Math.max(0, Math.min(1, end)))
     return new Line(segment_start, segment_end)
   }
 
@@ -25,7 +25,7 @@ export class Line {
     const position = this.start.clone()
     for (let i = 0; i < N; i++) {
       position.add_in_place(step)
-      const distance = Vector2.subtract(position, this.start).magnitude
+      const distance = Vector2.distance(position, this.start)
       brush_callback(position, distance)
     }
   }
@@ -38,7 +38,7 @@ export class Line {
     const position = segment.start.clone()
     for (let i = 0; i < N; i++) {
       position.add_in_place(step)
-      const distance = Vector2.subtract(position, this.start).magnitude
+      const distance = Vector2.distance(position, this.start)
       brush_callback(position, distance)
     }
   }
