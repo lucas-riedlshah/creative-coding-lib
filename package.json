@@ -14,10 +14,12 @@
   "author": "Lucas RiedlShah",
   "license": "UNLICENSED",
   "dependencies": {
-    "delaunator": "^5.0.0"
+    "delaunator": "^5.0.0",
+    "earcut": "^2.2.4"
   },
   "devDependencies": {
     "@types/delaunator": "^5.0.0",
+    "@types/earcut": "^2.1.1",
     "@types/p5": "^1.6.0",
     "@typescript-eslint/eslint-plugin": "^5.57.0",
     "@typescript-eslint/parser": "^5.57.0",
