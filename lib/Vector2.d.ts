@@ -18,6 +18,7 @@ export declare class Vector2 {
     static dot(u: Vector2, v: Vector2): number;
     static divide(u: Vector2, x: number): Vector2;
     clone(): Vector2;
+    to_list(): [number, number];
     set(x: number, y: number): void;
     normalize(): void;
     rotate(theta: number): void;

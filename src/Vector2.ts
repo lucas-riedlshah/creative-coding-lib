@@ -75,6 +75,10 @@ export class Vector2 {
     return new Vector2(this.x, this.y)
   }
 
+  public to_list(): [number, number] {
+    return [this.x, this.y]
+  }
+
   public set(x: number, y: number) {
     this.x = x
     this.y = y
