@@ -1,5 +1,5 @@
 export { generate_delaunay_triagulation_graph, generate_urquhart_graph, generate_voronoi_graph } from './delaunay_graphs'
-export { Graph2D, get_smallest_cycles } from './Graph2D'
+export { Graph2D, shortest_cycles } from './Graph2D'
 export { ShapedEmitter } from './ShapedEmitter'
 export { Circle } from './Circle'
 export { Polygon } from './Polygon'

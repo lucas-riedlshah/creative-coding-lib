@@ -3,6 +3,7 @@
 //   by Graph for all vertices during remove_vertex().
 // - This is not a great implementation to begin with so probably just scrap and restart aye?
 
+import { Polygon } from "."
 import { Vector2 } from "./Vector2"
 
 export class Graph2D {
@@ -84,7 +85,7 @@ export class Graph2D {
   }
 }
 
-export function get_smallest_cycles(graph: Graph2D): Vector2[][] {
+export function shortest_cycles(graph: Graph2D): Vector2[][] {
   const cycles: Vector2[][] = []
   const adjacency_matrix_clone: number[][] = graph.adjacency_matrix.map(row => row.map(w => w)) // deep-clone the matrix
 
@@ -141,10 +142,10 @@ export function get_smallest_cycles(graph: Graph2D): Vector2[][] {
    */
   function check_cycle_validity(cycle: Vector2[]): boolean {
     // Check if cycle contains other points not part of the cycle.
-    // TODO: Fix this part - right now we just guess based on the length of the cycle relative to total points in graph.
-    if (cycles.length > 1 && cycle.length / graph.vertices.length > 0.4) {
-      console.log(cycle.length / graph.vertices.length)
-      return false
+    if (cycle.length !== graph.vertices.length) {
+      const cycle_polygon = new Polygon(cycle)
+      for (const v of graph.vertices)
+        if (!cycle.includes(v) && cycle_polygon.contains(v)) return false
     }
 
     // Check for circuits
