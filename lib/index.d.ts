@@ -10,3 +10,4 @@ export { ShapedForceField } from './ShapedForceField';
 export { ForceField } from './ForceField';
 export { apply_gravity } from './IForceField';
 export { IShape } from './IShape';
+export { Line } from './Line';
