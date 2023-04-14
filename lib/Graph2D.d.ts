@@ -13,3 +13,4 @@ export declare class Graph2D {
     remove_edge(vertex_a: Vector2, vertex_b: Vector2): void;
     get_edges(): [Vector2, Vector2, number][];
 }
+export declare function get_smallest_cycles(graph: Graph2D): Vector2[][];
