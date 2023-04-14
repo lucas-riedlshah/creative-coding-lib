@@ -3,7 +3,7 @@ import { Vector2 } from "./Vector2";
 
 export function generate_pencil_brush(
   p5: p5,
-  diameter = 1.5,
+  diameter = 2,
   density = 3,
   diameter_variability = 1,
   bristle_diameter = 1
@@ -16,7 +16,7 @@ export function generate_pencil_brush(
   return (position: Vector2, distance_from_start: number) => {
     const diameter =
       BRUSH_DIAMETER -
-      BRUSH_DIAMETER * DIAMETER_VARIABILITY * p5.noise(distance_from_start * 0.01);
+      BRUSH_DIAMETER * DIAMETER_VARIABILITY * p5.noise(235.982 + distance_from_start * 0.05);
     const N = DENSITY * diameter;
     for (let i = 0; i < (N < 1 ? +(p5.random() < N) : N); i++) {
       const offsetted_position = Vector2.forward;
@@ -47,7 +47,7 @@ export function generate_ink_brush(
       position.x,
       position.y,
       MIN_DIAMETER +
-        Math.pow(p5.noise(distance_from_start), BLOTCHINESS) * DIAMETER_DIFFERENCE
+        Math.pow(p5.noise(235.982 + distance_from_start), BLOTCHINESS) * DIAMETER_DIFFERENCE
     );
   };
 }
