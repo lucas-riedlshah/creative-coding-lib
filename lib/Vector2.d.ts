@@ -16,6 +16,7 @@ export declare class Vector2 {
     static subtract(u: Vector2, v: Vector2): Vector2;
     static multiply(u: Vector2, x: number): Vector2;
     static dot(u: Vector2, v: Vector2): number;
+    static cross(u: Vector2, v: Vector2): number;
     static divide(u: Vector2, x: number): Vector2;
     clone(): Vector2;
     to_list(): [number, number];

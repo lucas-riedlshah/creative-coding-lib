@@ -67,6 +67,10 @@ export class Vector2 {
     return u.x * v.x + u.y * v.y
   }
 
+  public static cross(u: Vector2, v: Vector2): number {
+    return u.x * v.y - u.y * v.x
+  }
+
   public static divide(u: Vector2, x: number): Vector2 {
     return new Vector2(u.x / x, u.y / x)
   }
