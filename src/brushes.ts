@@ -1,22 +1,24 @@
 import p5 from "p5";
 import { Vector2 } from "./Vector2";
+import { Line } from ".";
 
 export function generate_pencil_brush(
   p5: p5,
-  diameter = 2,
+  brush_diameter = 2,
   density = 3,
   diameter_variability = 1,
-  bristle_diameter = 1
+  noise_scale = 0.05,
+  bristle_diameter = 1,
 ) {
-  const BRUSH_DIAMETER = diameter;
+  const BRUSH_DIAMETER = brush_diameter;
   const DIAMETER_VARIABILITY = Math.max(0, Math.min(1, diameter_variability));
   const DENSITY = density;
   const BRISTLE_DIAMETER = bristle_diameter;
 
-  return (position: Vector2, distance_from_start: number) => {
+  return (line: Line, position: Vector2, distance_from_start: number) => {
     const diameter =
       BRUSH_DIAMETER -
-      BRUSH_DIAMETER * DIAMETER_VARIABILITY * p5.noise(235.982 + distance_from_start * 0.05);
+      BRUSH_DIAMETER * DIAMETER_VARIABILITY * p5.noise(line.start.x, line.start.y, distance_from_start * noise_scale);
     const N = DENSITY * diameter;
     for (let i = 0; i < (N < 1 ? +(p5.random() < N) : N); i++) {
       const offsetted_position = Vector2.forward;
@@ -42,7 +44,7 @@ export function generate_ink_brush(
 
   const DIAMETER_DIFFERENCE = MAX_DIAMETER - MIN_DIAMETER;
 
-  return (position: Vector2, distance_from_start: number) => {
+  return (_line: Line, position: Vector2, distance_from_start: number) => {
     p5.circle(
       position.x,
       position.y,
