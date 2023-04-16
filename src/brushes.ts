@@ -18,7 +18,8 @@ export function generate_pencil_brush(
   const bristle_diameter = options?.bristle_diameter || 1
   const noise_scale = options?.noise_scale || 0.05
 
-  return (line: Line, position: Vector2, distance_from_start: number) => {
+  return (line: Line, position: Vector2) => {
+    const distance_from_start = Vector2.distance(line.start, position)
     const diameter =
       brush_diameter -
       brush_diameter * diameter_variability * p5.noise(line.start.x, line.start.y, distance_from_start * noise_scale);
@@ -51,7 +52,8 @@ export function generate_ink_brush(
 
   const DIAMETER_DIFFERENCE = max_diameter - min_diameter;
 
-  return (_line: Line, position: Vector2, distance_from_start: number) => {
+  return (line: Line, position: Vector2) => {
+    const distance_from_start = Vector2.distance(line.start, position)
     p5.circle(
       position.x,
       position.y,

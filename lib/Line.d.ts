@@ -6,6 +6,6 @@ export declare class Line {
     get length(): number;
     static intersection(a: Line, b: Line): Vector2 | null;
     get_segment(start: number, end: number): Line;
-    draw(brush_callback: (line: Line, position: Vector2, distance_from_start: number) => void, resolution?: number): void;
-    draw_segment(start: number, end: number, brush_callback: (line: Line, position: Vector2, distance_from_start: number) => void, resolution?: number): void;
+    draw(brush_callback: (line: Line, position: Vector2) => void, resolution?: number): void;
+    draw_segment(start: number, end: number, brush_callback: (line: Line, position: Vector2) => void, resolution?: number): void;
 }

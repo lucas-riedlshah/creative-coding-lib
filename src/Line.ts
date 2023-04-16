@@ -51,18 +51,17 @@ export class Line {
     return new Line(segment_start, segment_end)
   }
 
-  public draw(brush_callback: (line: Line, position: Vector2, distance_from_start: number) => void, resolution = 1) {
+  public draw(brush_callback: (line: Line, position: Vector2) => void, resolution = 1) {
     const N = this.length * resolution
     const step: Vector2 = Vector2.divide(Vector2.subtract(this.end, this.start), N)
     const position = this.start.clone()
     for (let i = 0; i < N; i++) {
       position.add_in_place(step)
-      const distance = Vector2.distance(position, this.start)
-      brush_callback(this, position, distance)
+      brush_callback(this, position)
     }
   }
 
-  public draw_segment(start: number, end: number, brush_callback: (line: Line, position: Vector2, distance_from_start: number) => void, resolution = 1) {
+  public draw_segment(start: number, end: number, brush_callback: (line: Line, position: Vector2) => void, resolution = 1) {
     const segment = this.get_segment(start, end - Number.EPSILON * 100)
     // segment.draw(brush_callback, resolution)
     const N = segment.length * resolution
@@ -70,8 +69,7 @@ export class Line {
     const position = segment.start.clone()
     for (let i = 0; i < N; i++) {
       position.add_in_place(step)
-      const distance = Vector2.distance(position, this.start)
-      brush_callback(this, position, distance)
+      brush_callback(this, position)
     }
   }
 }
