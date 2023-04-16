@@ -4,22 +4,25 @@ import { Line } from ".";
 
 export function generate_pencil_brush(
   p5: p5,
-  brush_diameter = 2,
-  density = 3,
-  diameter_variability = 1,
-  noise_scale = 0.05,
-  bristle_diameter = 1,
+  options?: {
+    brush_diameter?: number,
+    density?: number,
+    diameter_variability?: number,
+    noise_scale?: number,
+    bristle_diameter?: number,
+  }
 ) {
-  const BRUSH_DIAMETER = brush_diameter;
-  const DIAMETER_VARIABILITY = Math.max(0, Math.min(1, diameter_variability));
-  const DENSITY = density;
-  const BRISTLE_DIAMETER = bristle_diameter;
+  const brush_diameter = options?.brush_diameter || 2
+  const density = options?.density || 3
+  const diameter_variability = options?.diameter_variability ? Math.max(0, Math.min(1, options.diameter_variability)) : 1
+  const bristle_diameter = options?.bristle_diameter || 1
+  const noise_scale = options?.noise_scale || 0.05
 
   return (line: Line, position: Vector2, distance_from_start: number) => {
     const diameter =
-      BRUSH_DIAMETER -
-      BRUSH_DIAMETER * DIAMETER_VARIABILITY * p5.noise(line.start.x, line.start.y, distance_from_start * noise_scale);
-    const N = DENSITY * diameter;
+      brush_diameter -
+      brush_diameter * diameter_variability * p5.noise(line.start.x, line.start.y, distance_from_start * noise_scale);
+    const N = density * diameter;
     for (let i = 0; i < (N < 1 ? +(p5.random() < N) : N); i++) {
       const offsetted_position = Vector2.forward;
       offsetted_position.rotate(p5.random() * Math.PI * 2);
@@ -27,29 +30,33 @@ export function generate_pencil_brush(
         Math.sqrt(p5.random()) * diameter * 0.5
       );
       offsetted_position.add_in_place(position);
-      p5.circle(offsetted_position.x, offsetted_position.y, BRISTLE_DIAMETER);
+      p5.circle(offsetted_position.x, offsetted_position.y, bristle_diameter);
     }
   };
 }
 
 export function generate_ink_brush(
   p5: p5,
-  blotchiness = 3,
-  min_diameter = 0.5,
-  max_diameter = 5
+  options?: {
+    min_diameter?: number,
+    max_diameter?: number,
+    blotchiness?: number,
+  },
 ) {
-  const MIN_DIAMETER = Math.min(min_diameter, max_diameter);
-  const MAX_DIAMETER = Math.max(min_diameter, max_diameter);
-  const BLOTCHINESS = blotchiness;
+  const temp_min = options?.min_diameter || 0.5
+  const temp_max = options?.max_diameter || 5
+  const min_diameter = Math.min(temp_min, temp_max)
+  const max_diameter = Math.max(temp_min, temp_max)
+  const blotchiness = options?.blotchiness || 3
 
-  const DIAMETER_DIFFERENCE = MAX_DIAMETER - MIN_DIAMETER;
+  const DIAMETER_DIFFERENCE = max_diameter - min_diameter;
 
   return (_line: Line, position: Vector2, distance_from_start: number) => {
     p5.circle(
       position.x,
       position.y,
-      MIN_DIAMETER +
-        Math.pow(p5.noise(235.982 + distance_from_start), BLOTCHINESS) * DIAMETER_DIFFERENCE
+      min_diameter +
+        Math.pow(p5.noise(235.982 + distance_from_start), blotchiness) * DIAMETER_DIFFERENCE
     );
   };
 }
