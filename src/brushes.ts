@@ -10,13 +10,21 @@ export function generate_pencil_brush(
     diameter_variability?: number,
     noise_scale?: number,
     bristle_diameter?: number,
+    bristle_distribution?: {
+      use_gaussian: boolean,
+      gaussian_mean: number,
+      gaussian_sd: number
+    }
   }
 ) {
-  const brush_diameter = options?.brush_diameter || 2
+  const brush_diameter = options?.brush_diameter || 100
   const density = options?.density || 3
   const diameter_variability = options?.diameter_variability ? Math.max(0, Math.min(1, options.diameter_variability)) : 1
   const bristle_diameter = options?.bristle_diameter || 1
   const noise_scale = options?.noise_scale || 0.05
+  const use_gaussian = options?.bristle_distribution?.use_gaussian || false
+  const gaussian_mean = options?.bristle_distribution?.gaussian_mean || 0
+  const gaussian_sd = options?.bristle_distribution?.gaussian_sd || 0.5
 
   return (line: Line, position: Vector2) => {
     const distance_from_start = Vector2.distance(line.start, position)
@@ -28,7 +36,10 @@ export function generate_pencil_brush(
       const offsetted_position = Vector2.forward;
       offsetted_position.rotate(p5.random() * Math.PI * 2);
       offsetted_position.multiply_in_place(
-        Math.sqrt(p5.random()) * diameter * 0.5
+        Math.sqrt(use_gaussian 
+          ? Math.abs(p5.randomGaussian(gaussian_mean, gaussian_sd)) 
+          : p5.random())
+         * diameter * 0.5
       );
       offsetted_position.add_in_place(position);
       p5.circle(offsetted_position.x, offsetted_position.y, bristle_diameter);
