@@ -1,6 +1,7 @@
+import { ICurve } from './ICurve'
 import { Vector2 } from './Vector2'
 
-export class Line {
+export class Line implements ICurve {
   public start: Vector2
   public end: Vector2
 
@@ -51,7 +52,7 @@ export class Line {
     return new Line(segment_start, segment_end)
   }
 
-  public draw(brush_callback: (line: Line, position: Vector2) => void, resolution = 1) {
+  public draw(brush_callback: (curve: ICurve, position: Vector2) => void, resolution = 1) {
     const N = this.length * resolution
     const step: Vector2 = Vector2.divide(Vector2.subtract(this.end, this.start), N)
     const position = this.start.clone()
@@ -61,7 +62,7 @@ export class Line {
     }
   }
 
-  public draw_segment(start: number, end: number, brush_callback: (line: Line, position: Vector2) => void, resolution = 1) {
+  public draw_segment(start: number, end: number, brush_callback: (curve: ICurve, position: Vector2) => void, resolution = 1) {
     const segment = this.get_segment(start, end - Number.EPSILON * 100)
     // segment.draw(brush_callback, resolution)
     const N = segment.length * resolution
