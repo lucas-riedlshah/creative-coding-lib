@@ -94,7 +94,9 @@ export class Vector2 {
     this.y /= m
   }
 
-  public rotate(theta: number) {
+  public rotate(theta: number) { 
+    // TODO: THIS IS WRONG, NEEDS TO ADD CURRENT ANGLE TO THETA BEFORE SETTING X AND Y eg Math.cos(theta + this.angle)
+    // ALSO, ARE COS AND SIN IN THE RIGHT ORDER?
     const magnitude = this.magnitude
     this.x = magnitude * Math.cos(theta)
     this.y = magnitude * Math.sin(theta)
