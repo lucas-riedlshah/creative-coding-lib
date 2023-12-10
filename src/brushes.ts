@@ -44,15 +44,19 @@ export function generate_ink_brush(
     min_diameter?: number,
     max_diameter?: number,
     blotchiness?: number,
+    noise_scale?: number,
   },
 ) {
   const temp_min = options?.min_diameter || 0.5
   const temp_max = options?.max_diameter || 5
   const min_diameter = Math.min(temp_min, temp_max)
-  const max_diameter = Math.max(temp_min, temp_max)
+  const diameter_difference = Math.abs(temp_min - temp_max);
   const blotchiness = options?.blotchiness || 3
+  const noise_scale = options?.noise_scale || 0.05
 
-  const DIAMETER_DIFFERENCE = max_diameter - min_diameter;
+  const noise_offset_x = p5.random() * 100000
+  const noise_offset_y = p5.random() * 100000
+  const noise_offset_z = p5.random() * 100000
 
   return (curve: ICurve, position: Vector2) => {
     const distance_from_start = Vector2.distance(curve.start, position)
@@ -60,7 +64,7 @@ export function generate_ink_brush(
       position.x,
       position.y,
       min_diameter +
-        Math.pow(p5.noise(235.982 + distance_from_start), blotchiness) * DIAMETER_DIFFERENCE
+        Math.pow(p5.noise(noise_offset_x + curve.start.x, noise_offset_y + curve.start.y, noise_offset_z + distance_from_start * noise_scale), blotchiness) * diameter_difference
     );
   };
 }

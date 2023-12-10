@@ -13,4 +13,5 @@ export declare function generate_ink_brush(p5: p5, options?: {
     min_diameter?: number;
     max_diameter?: number;
     blotchiness?: number;
+    noise_scale?: number;
 }): (curve: ICurve, position: Vector2) => void;
