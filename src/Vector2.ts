@@ -40,7 +40,12 @@ export class Vector2 {
   }
 
   public static angle(u: Vector2, v: Vector2): number {
-    return Math.atan2(u.x * v.y - v.x * u.y, u.x * v.x - u.y * v.y)
+    const angle = Math.atan2(u.x * v.y - v.x * u.y, u.x * v.x - u.y * v.y)
+    if (angle < 0) {
+      return angle
+    } else {
+      return angle - Math.PI * 2
+    }
   }
 
   public static lerp(u: Vector2, v: Vector2, value: number): Vector2 {
