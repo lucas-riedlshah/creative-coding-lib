@@ -40,7 +40,7 @@ export class Vector2 {
   }
 
   public static angle(u: Vector2, v: Vector2): number {
-    return Math.acos(Vector2.dot(u, v) / (u.magnitude * v.magnitude))
+    return Math.atan2(u.x * v.y - v.x * u.y, u.x * v.x - u.y * v.y)
   }
 
   public static lerp(u: Vector2, v: Vector2, value: number): Vector2 {
@@ -95,11 +95,13 @@ export class Vector2 {
   }
 
   public rotate(theta: number) { 
-    // TODO: THIS IS WRONG, NEEDS TO ADD CURRENT ANGLE TO THETA BEFORE SETTING X AND Y eg Math.cos(theta + this.angle)
-    // ALSO, ARE COS AND SIN IN THE RIGHT ORDER?
-    const magnitude = this.magnitude
-    this.x = magnitude * Math.cos(theta)
-    this.y = magnitude * Math.sin(theta)
+    const sin_theta = Math.sin(theta)
+    const cos_theta = Math.cos(theta)
+    const old_x = this.x
+    const old_y = this.y
+
+    this.x = cos_theta * old_x - sin_theta * old_y
+    this.y = sin_theta * old_x + cos_theta * old_y
   }
   
   // UNTESTED

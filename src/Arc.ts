@@ -32,6 +32,41 @@ export class Arc implements ICurve {
     )
   }
 
+  /**
+   * 
+   * @param start The starting point of the arc.
+   * @param end The end point of the arc.
+   * @param pivot_radius The radius of the pivot from both the start and end points.
+   * @returns The Arc between the points `start` and `end`.
+   */
+  public static between(start: Vector2, end: Vector2, pivot_radius = 0): Arc {
+    const half_distance = Vector2.distance(start, end) / 2
+    const radius_sign = pivot_radius >= 0 ? 1 : -1
+    // pivot_radius must be >= half_distance
+    pivot_radius = Math.max(Math.abs(pivot_radius), half_distance)
+
+    const m = Math.sqrt(pivot_radius * pivot_radius - half_distance * half_distance)
+    const perpendicular_distance = Vector2.subtract(end, start).normalized
+    perpendicular_distance.rotate(Math.PI / 2)
+    perpendicular_distance.multiply_in_place(m)
+
+    const pivot = Vector2.add(start, end)
+    pivot.divide_in_place(2)
+    if (radius_sign > 0) {
+      pivot.add_in_place(perpendicular_distance)
+    } else {
+      pivot.subtract_in_place(perpendicular_distance)
+    }
+
+    const start_angle = -Vector2.angle(Vector2.up, Vector2.subtract(start, pivot))
+        + (radius_sign < 0 && m === 0 ? Math.PI * 2 : 0)
+    const end_angle = -Vector2.angle(Vector2.up, Vector2.subtract(end, pivot))
+
+    console.log(start_angle, end_angle)
+
+    return new Arc(pivot, pivot_radius, start_angle, end_angle)
+  }
+
   public get_segment(start: number, end: number): Arc {
     start = Math.max(0, Math.min(1, start))
     end = Math.max(0, Math.min(1, end))
